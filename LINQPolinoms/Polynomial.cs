@@ -106,7 +106,6 @@ namespace LINQPolinoms
                 {
                     result.SetCoefficient(result.GetCoefficient(i + j) + a.GetCoefficient(i) * b.GetCoefficient(j), i + j);
                 }
-
             }
             return result;
         }
