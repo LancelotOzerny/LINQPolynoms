@@ -34,7 +34,7 @@
             this.btn_critery = new System.Windows.Forms.Button();
             this.btn_sort = new System.Windows.Forms.Button();
             this.btn_group = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_clear = new System.Windows.Forms.Button();
             this.label_allDataCount = new System.Windows.Forms.Label();
             this.label_filtredDataCount = new System.Windows.Forms.Label();
             this.label_xValue = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@
             this.btn_critery.TabIndex = 1;
             this.btn_critery.Text = "Результат не важен";
             this.btn_critery.UseVisualStyleBackColor = true;
-            this.btn_critery.Click += new System.EventHandler(this.button2_Click);
+            this.btn_critery.Click += new System.EventHandler(this.btn_critery_Click);
             // 
             // btn_sort
             // 
@@ -97,8 +97,9 @@
             this.btn_sort.Name = "btn_sort";
             this.btn_sort.Size = new System.Drawing.Size(209, 35);
             this.btn_sort.TabIndex = 1;
-            this.btn_sort.Text = "Сортировать";
+            this.btn_sort.Text = "Без сортировки";
             this.btn_sort.UseVisualStyleBackColor = true;
+            this.btn_sort.Click += new System.EventHandler(this.btn_sort_Click);
             // 
             // btn_group
             // 
@@ -111,19 +112,20 @@
             this.btn_group.TabIndex = 1;
             this.btn_group.Text = "Сгруппировать";
             this.btn_group.UseVisualStyleBackColor = true;
+            this.btn_group.Click += new System.EventHandler(this.btn_group_Click);
             // 
-            // button1
+            // btn_clear
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.button1.Location = new System.Drawing.Point(295, 251);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(209, 35);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Очистить все";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_clear.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btn_clear.Location = new System.Drawing.Point(295, 251);
+            this.btn_clear.Name = "btn_clear";
+            this.btn_clear.Size = new System.Drawing.Size(209, 35);
+            this.btn_clear.TabIndex = 1;
+            this.btn_clear.Text = "Очистить все";
+            this.btn_clear.UseVisualStyleBackColor = true;
+            this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
             // 
             // label_allDataCount
             // 
@@ -166,7 +168,7 @@
             this.Controls.Add(this.label_filtredDataCount);
             this.Controls.Add(this.label_xValue);
             this.Controls.Add(this.label_allDataCount);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_clear);
             this.Controls.Add(this.btn_group);
             this.Controls.Add(this.btn_sort);
             this.Controls.Add(this.btn_critery);
@@ -188,7 +190,7 @@
         private System.Windows.Forms.Button btn_critery;
         private System.Windows.Forms.Button btn_sort;
         private System.Windows.Forms.Button btn_group;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_clear;
         private System.Windows.Forms.Label label_allDataCount;
         private System.Windows.Forms.Label label_filtredDataCount;
         private System.Windows.Forms.Label label_xValue;

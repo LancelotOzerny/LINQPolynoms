@@ -24,11 +24,108 @@ namespace LINQPolinoms
         WhereCrytery critery = WhereCrytery.Nothing;
 
         // Сортировка - прямая, никакая или обратная
-        enum Sorting { Ascending, Nothing, Descending }
-        Sorting sort;
+        enum Sorting { Ascending = -1, Nothing = 0, Descending = 1 }
+        Sorting sorting;
 
         // Сортировка - прямая, никакая или обратная
         bool grouping;
+
+
+
+
+
+        // LINQ -  КРИТЕРИЙ, СОРТИРОВКА, ГРУППИРОВКА 
+
+
+
+
+
+        /// <summary>
+        /// Метод, который позволяет реализовать выборку
+        /// </summary>
+        private void SetQuery()
+        {
+            // Очищаем все данные из listbox
+            listbox_filtredData.Items.Clear();
+
+            // выбираем все данные
+            IEnumerable<LINQPolinoms.Polynomial> result = from polynom in polynomials select polynom;
+
+            // Выборка + сортировка + Группировка
+            result = WhereQuery(result);
+            result = SortQuery(result);
+
+            // (Если группировка есть - то вывод уже другой)
+            if (grouping)
+            {
+                var gouped = from field in result group field by (int)(field.GetResult(xCoeff) / 10); // Группируем по 10 чисел (по десяткам)
+
+                foreach (var polynomsGroup in gouped)
+                {
+                    foreach (var polynom in polynomsGroup)
+                    {
+                        listbox_filtredData.Items.Add($"{polynom.ToString()} ({polynom.GetResult(xCoeff)})");
+                    }
+                    listbox_filtredData.Items.Add("");
+                }
+
+                btn_group.Text = "Разгруппировать";
+            }
+            else
+            {
+                // Выводим данные на listbox
+                foreach (var polynom in result)
+                {
+                    listbox_filtredData.Items.Add($"{polynom.ToString()} ({polynom.GetResult(xCoeff)})");
+                }
+            }
+            // Выводим кол-во элементов
+            label_filtredDataCount.Text = $"Элементов: {listbox_filtredData.Items.Count}";
+        }
+
+        /// <summary>
+        /// Метод, который позволяет реализовать критерий
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private IEnumerable<LINQPolinoms.Polynomial> WhereQuery(IEnumerable<LINQPolinoms.Polynomial> data)
+        {
+            if (critery == WhereCrytery.Less50)
+            {
+                data = from field in data where field.GetResult(xCoeff) < 50 select field;
+            }
+            else if (critery == WhereCrytery.MoreEqual50)
+            {
+                data = from field in data where field.GetResult(xCoeff) >= 50 select field;
+            }
+
+            return data;
+        }
+
+        /// <summary>
+        /// Метод, который позволяет реализовать сортировку данных
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private IEnumerable<LINQPolinoms.Polynomial> SortQuery(IEnumerable<LINQPolinoms.Polynomial> data)
+        {
+            if (sorting == Sorting.Ascending)
+            {
+                data = from field in data orderby field.GetResult(xCoeff) ascending select field;
+            }
+            else if (sorting == Sorting.Descending)
+            {
+                data = from field in data orderby field.GetResult(xCoeff) descending select field;
+            }
+
+            return data;
+        }
+
+
+
+        // ФОРМА И НАЖАТИ НА КНОПКИ
+
+
 
         public Form1()
         {
@@ -62,11 +159,11 @@ namespace LINQPolinoms
         }
 
         /// <summary>
-        /// МетодЮ которйы пощволяет очистить все данные
+        /// МетодЮ который пощволяет очистить все данные
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_clear_Click(object sender, EventArgs e)
         {
             polynomials.Clear();
             listbox_filtredData.Items.Clear();
@@ -78,70 +175,67 @@ namespace LINQPolinoms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_critery_Click(object sender, EventArgs e)
         {
             if (critery == WhereCrytery.Less50)
             {
                 critery = WhereCrytery.Nothing;
+                btn_critery.Text = "Результат не важен";
             }
 
             else if (critery == WhereCrytery.Nothing)
             {
                 critery = WhereCrytery.MoreEqual50;
+                btn_critery.Text = "Результат >= 50";
             }
 
             else
             {
                 critery = WhereCrytery.Less50;
+                btn_critery.Text = "Результат < 50";
             }
 
             SetQuery();
         }
 
         /// <summary>
-        /// Метод, который позволяет реализовать выборку
+        /// Метод, который позволяет установить сортировку
         /// </summary>
-        private void SetQuery()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_sort_Click(object sender, EventArgs e)
         {
-            listbox_filtredData.Items.Clear();
-            IEnumerable<LINQPolinoms.Polynomial> result = from polynom in polynomials select polynom;
-
-            result = WhereQuery(result);
-
-            foreach (var polynom in result)
+            if (sorting == Sorting.Ascending)
             {
-                listbox_filtredData.Items.Add($"{polynom.ToString()} ({polynom.GetResult(xCoeff)})");
+                sorting = Sorting.Nothing;
+                btn_sort.Text = "Без сортировки";
             }
 
-            label_filtredDataCount.Text = $"Элементов: {listbox_filtredData.Items.Count}";
-        }
-
-        /// <summary>
-        /// Метод, который позволяет реализовать критерий
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        private IEnumerable<LINQPolinoms.Polynomial> WhereQuery(IEnumerable<LINQPolinoms.Polynomial> data)
-        {
-            if (critery == WhereCrytery.Less50)
+            else if (sorting == Sorting.Nothing)
             {
-                data = from field in data where field.GetResult(xCoeff) < 50 select field;
-                btn_critery.Text = "Результат < 50";
-            }
-
-            else if (critery == WhereCrytery.MoreEqual50)
-            {
-                data = from field in data where field.GetResult(xCoeff) >= 50 select field;
-                btn_critery.Text = "Результат >= 50";
+                sorting = Sorting.Descending;
+                btn_sort.Text = "По убыванию";
             }
 
             else
             {
-                data = from field in data select field;
-                btn_critery.Text = "Результат не важен";
+                sorting = Sorting.Ascending;
+                btn_sort.Text = "По возрастанию";
             }
 
-            return data;
+            SetQuery();
+        }
+
+        /// <summary>
+        /// Метод, который позволяет включить группировку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_group_Click(object sender, EventArgs e)
+        {
+            btn_group.Text = "Сгруппировать";
+            grouping = !grouping;
+            SetQuery();
         }
     }
 }
