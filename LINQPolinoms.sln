@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQPolinoms", "LINQPolinoms\LINQPolinoms.csproj", "{69447897-4525-4E87-80D9-EF48C46767E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69447897-4525-4E87-80D9-EF48C46767E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69447897-4525-4E87-80D9-EF48C46767E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69447897-4525-4E87-80D9-EF48C46767E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69447897-4525-4E87-80D9-EF48C46767E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66A313CC-DF21-44D4-BC4D-1797A1349F47}
+	EndGlobalSection
+EndGlobal
